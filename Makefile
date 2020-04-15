@@ -31,9 +31,9 @@ define Package/portfwd/description
 User-space TCP/UDP port forwarding services.
 endef
 
-#define Package/portfwd/conffiles
-#/etc/config/portfwd
-#endef
+define Package/portfwd/conffiles
+/etc/config/portfwd
+endef
 
 TARGET_CFLAGS += -O3
 
@@ -43,6 +43,10 @@ define Package/portfwd/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/tcpfwd $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/udpfwd $(1)/usr/bin
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) files/portfwd.init $(1)/etc/init.d/portfwd
+	$(INSTALL_DIR) $(1)/etc/config
+	$(INSTALL_CONF) files/portfwd.config $(1)/etc/config/portfwd
 endef
 
 $(eval $(call BuildPackage,portfwd))
