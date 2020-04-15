@@ -35,6 +35,8 @@ endef
 #/etc/config/portfwd
 #endef
 
+TARGET_CFLAGS += -O3
+
 MAKE_PATH := src
 
 define Package/portfwd/install
